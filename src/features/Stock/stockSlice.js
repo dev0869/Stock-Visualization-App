@@ -12,12 +12,17 @@ const initialState = {
     c: [],
     d: [],
   },
+  ticker: "AMZN",
 };
 
 export const stockSlice = createSlice({
-  name: "counter",
+  name: "stocks",
   initialState,
-  reducers: {},
+  reducers: {
+    selectTickers: (state, action) => {
+      state.ticker = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(searchSymbol.fulfilled, (state, action) => {
@@ -50,5 +55,7 @@ export const stockSlice = createSlice({
       });
   },
 });
+
+export const { selectTickers } = stockSlice.actions;
 
 export default stockSlice.reducer;

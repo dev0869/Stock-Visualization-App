@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Area,
     XAxis,
@@ -8,16 +8,22 @@ import {
     Tooltip,
 } from "recharts";
 import { chartConfig } from '../constants/config';
-import { mockHistoricalData } from '../constants/mock'
+// import { mockHistoricalData } from '../constants/mock'
 import { convertUnixTimestampToDate } from '../utils';
 import ChartFilter from './ChartFilter';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchHistory } from '../features/Stock/stockService';
 const Chart = () => {
-
-    const [data, setData] = useState(mockHistoricalData);
+    const dispatch = useDispatch()
+    // const [data, setData] = useState(mockHistoricalData);
     const [filter, setFilter] = useState("1W")
     const datas = useSelector((st) => st.stock.data.d);
     console.log(datas);
+    const Tickers = useSelector((state) => state.stock.ticker);
+
+    useEffect(() => {
+        dispatch(fetchHistory({ symbol: Tickers, resolution: 'D', from: '1693566836', to: '1698837236' }))
+    }, [dispatch])
 
     const formatData = (data) => {
         return data?.c?.map((item, index) => {
@@ -30,21 +36,7 @@ const Chart = () => {
 
     return (
         <>
-            {/* <ResponsiveContainer>
-                <AreaChart data={formatData(data)}>
-                    <Area
-                        type="monotone"
-                        dataKey="value"
-                        stroke="#312e81"
-                        fill="url(#chartColor)"
-                        fillOpacity={1}
-                        strokeWidth={0.5}
-                    />
-                    <Tooltip />
-                    <XAxis dataKey={'date'} />
-                    <YAxis domain={['datamin', 'datamax']} />
-                </AreaChart>
-            </ResponsiveContainer> */}
+
             <ul className="flex absolute top-2 right-2 z-40">
                 {Object.keys(chartConfig).map((item) => (
                     <li key={item}>

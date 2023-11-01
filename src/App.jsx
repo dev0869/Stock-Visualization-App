@@ -5,10 +5,13 @@ import Layout from './Layout/Layout'
 import Main from './components/Main'
 import Sidebar from './components/Sidebar'
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const Tickers = useSelector((state) => state.stock.ticker);
+  console.log(Tickers);
+
   useEffect(() => {
-    dispatch(fetchHistory({ symbol: 'AAPL', resolution: 'D', from: '1572566400', to: '1574985600' }))
-  }, [])
+    dispatch(fetchHistory({ symbol: Tickers, resolution: 'D', from: '1693566836', to: '1698837236' }))
+  }, [Tickers])
 
 
   return (
