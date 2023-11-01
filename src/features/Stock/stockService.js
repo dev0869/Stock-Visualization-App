@@ -48,7 +48,6 @@ export const fetchQuote = createAsyncThunk(
 export const fetchHistory = createAsyncThunk(
   "fetchhsymbol",
   async (payload, thunkApi) => {
-    console.log(payload);
     const { symbol, resolution, from, to } = payload;
     try {
       const res = await axios.get(

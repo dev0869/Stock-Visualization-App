@@ -7,18 +7,13 @@ import {
     AreaChart,
     Tooltip,
 } from "recharts";
-import { chartConfig } from '../constants/config';
-// import { mockHistoricalData } from '../constants/mock'
 import { convertUnixTimestampToDate } from '../utils';
-import ChartFilter from './ChartFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchHistory } from '../features/Stock/stockService';
+
 const Chart = () => {
     const dispatch = useDispatch()
-    // const [data, setData] = useState(mockHistoricalData);
-    const [filter, setFilter] = useState("1W")
     const datas = useSelector((st) => st.stock.data.d);
-    console.log(datas);
     const Tickers = useSelector((state) => state.stock.ticker);
 
     useEffect(() => {
@@ -37,19 +32,7 @@ const Chart = () => {
     return (
         <>
 
-            <ul className="flex absolute top-2 right-2 z-40">
-                {Object.keys(chartConfig).map((item) => (
-                    <li key={item}>
-                        <ChartFilter
-                            text={item}
-                            active={filter === item}
-                            onClick={() => {
-                                setFilter(item);
-                            }}
-                        />
-                    </li>
-                ))}
-            </ul>
+
             <ResponsiveContainer>
                 <AreaChart data={formatData(datas)}>
                     <defs>
@@ -66,9 +49,7 @@ const Chart = () => {
                             />
                         </linearGradient>
                     </defs>
-                    <Tooltip
-
-                    />
+                    <Tooltip />
                     <Area
                         type="monotone"
                         dataKey="value"

@@ -1,11 +1,9 @@
-import React, { useDebugValue, useState } from 'react';
+import React, { useState } from 'react';
 import { selectTickers } from '../features/Stock/stockSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const Sidebar = () => {
     const dispatch = useDispatch();
-    const Tickers = useSelector((state) => state.stock.ticker);
-    console.log(Tickers);
     const [selectedValue, setSelectedValue] = useState(null);
 
     const handleSelect = (value) => {
