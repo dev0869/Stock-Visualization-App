@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchQuote } from './features/Stock/stockService'
+import { fetchHistory, fetchQuote } from './features/Stock/stockService'
 import Layout from './Layout/Layout'
 import Main from './components/Main'
 import Sidebar from './components/Sidebar'
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchQuote('AMZN'))
+    dispatch(fetchHistory({ symbol: 'AAPL', resolution: 'D', from: '1572566400', to: '1574985600' }))
   }, [])
 
 
